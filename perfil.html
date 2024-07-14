@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Perfil do Usuário - Loja Apollo">
+    <meta name="keywords" content="Loja Apollo, perfil, usuário">
+    <meta name="author" content="Loja Apollo">
+    <title>Perfil do Usuário - Loja Apollo</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(45deg, #800080, #4B0082, #8A2BE2, #000000);
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease infinite;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        @keyframes gradientBG {
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        header,
+        nav,
+        footer {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            margin: 20px 0;
+            text-align: center;
+            color: #000;
+            overflow: hidden;
+        }
+
+        h1 {
+            margin-bottom: 0;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .profile-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-details img {
+            border-radius: 50%;
+            max-width: 100px;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .btn {
+            background-color: #800080;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+
+        .btn:hover {
+            background-color: #4B0082;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+        }
+
+        .editable-input {
+            border: 1px solid #ccc;
+            padding: 8px;
+            border-radius: 5px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .edit-btn {
+            background-color: #4B0082;
+        }
+
+        .save-btn {
+            background-color: #008000;
+        }
+
+        .cancel-btn {
+            background-color: #FF6347;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+
+            .btn {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Loja Apollo</h1>
+        <nav>
+            <ul class="navbar__links">
+                <li><a href="index.html" class="navbar__link">Início</a></li>
+                <li><a href="perfil.html" class="navbar__link navbar__link--tappable navbar__link--hoverable">Perfil</a></li>
+                <li><a href="ajuda.html" class="navbar__link navbar__link--tappable navbar__link--hoverable">Ajuda</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="profile-section" id="informacoes-pessoais">
+            <h2>Informações Pessoais</h2>
+            <div class="profile-details">
+                <img id="profile-image" src="https://via.placeholder.com/100" alt="Foto do Perfil">
+                <button id="change-photo-btn" class="btn">Alterar Foto</button>
+                <form id="info-form">
+                    <table>
+                        <tr>
+                            <th>Nome:</th>
+                            <td><input id="nome" class="editable-input" type="text" value="Victor Silva"></td>
+                        </tr>
+                        <tr>
+                            <th>Email:</th>
+                            <td><input id="email" class="editable-input" type="email" value="victor@example.com"></td>
+                        </tr>
+                        <tr>
+                            <th>Telefone:</th>
+                            <td><input id="telefone" class="editable-input" type="tel" value="(11) 98765-4321"></td>
+                        </tr>
+                        <tr>
+                            <th>Data de Nascimento:</th>
+                            <td><input id="data-nascimento" class="editable-input" type="text" value="15/07/1990"></td>
+                        </tr>
+                    </table>
+                    <button type="button" id="edit-info-btn" class="btn edit-btn">Editar</button>
+                    <button type="submit" id="save-info-btn" class="btn save-btn">Salvar</button>
+                    <button type="button" id="cancel-info-btn" class="btn cancel-btn">Cancelar</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="profile-section" id="historico-pedidos">
+            <h2>Histórico de Pedidos</h2>
+            <table id="orders-table">
+                <thead>
+                    <tr>
+                        <th>Pedido</th>
+                        <th>Data</th>
+                        <th>Status</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#12345</td>
+                        <td>01/07/2024</td>
+                        <td>Entregue</td>
+                        <td>R$ 150,00</td>
+                    </tr>
+                    <tr>
+                        <td>#12344</td>
+                        <td>15/06/2024</td>
+                        <td>Em Trânsito</td>
+                        <td>R$ 200,00</td>
+                    </tr>
+                    <tr>
+                        <td>#12343</td>
+                        <td>05/06/2024</td>
+                        <td>Cancelado</td>
+                        <td>R$ 100,00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="profile-section" id="enderecos-entrega">
+            <h2>Endereços de Entrega</h2>
+            <table id="addresses-table">
+                <thead>
+                    <tr>
+                        <th>Endereço</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Rua Exemplo, 123, São Paulo - SP, 01000-000</td>
+                        <td class="actions">
+                            <button type="button" class="btn editar-btn">Editar</button>
+                            <button type="button" class="btn remover-btn">Remover</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Rua Teste, 456, Rio de Janeiro - RJ, 20000-000</td>
+                        <td class="actions">
+                            <button type="button" class="btn editar-btn">Editar</button>
+                            <button type="button" class="btn remover-btn">Remover</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <form id="edit-address-form" style="display: none;">
+                <label for="endereco">Novo Endereço:</label>
+                <input id="endereco" class="editable-input" type="text" value="">
+                <button type="submit" id="save-address-btn" class="btn save-btn">Salvar</button>
+                <button type="button" id="cancel-address-btn" class="btn cancel-btn">Cancelar</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Loja Apollo. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Função para alternar entre modo de edição e visualização
+            function toggleEditMode(formId, editMode) {
+                const form = document.getElementById(formId);
+                const editableInputs = form.querySelectorAll('.editable-input');
+                const editBtn = form.querySelector('.edit-btn');
+                const saveBtn = form.querySelector('.save-btn');
+                const cancelBtn = form.querySelector('.cancel-btn');
+
+                editableInputs.forEach(input => {
+                    input.disabled = !editMode;
+                });
+
+                editBtn.style.display = editMode ? 'none' : 'inline-block';
+                saveBtn.style.display = editMode ? 'inline-block' : 'none';
+                cancelBtn.style.display = editMode ? 'inline-block' : 'none';
+            }
+
+            // Informações Pessoais
+            const infoForm = document.getElementById('info-form');
+            const editInfoBtn = document.getElementById('edit-info-btn');
+            const saveInfoBtn = document.getElementById('save-info-btn');
+            const cancelInfoBtn = document.getElementById('cancel-info-btn');
+
+            editInfoBtn.addEventListener('click', function () {
+                toggleEditMode('info-form', true);
+            });
+
+            infoForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                toggleEditMode('info-form', false);
+                // Aqui você pode adicionar a lógica para salvar as informações
+                alert('Informações pessoais salvas.');
+            });
+
+            cancelInfoBtn.addEventListener('click', function () {
+                toggleEditMode('info-form', false);
+                // Aqui você pode restaurar os valores originais dos inputs se necessário
+            });
+
+            // Endereços de Entrega
+            const editAddressForm = document.getElementById('edit-address-form');
+            const addressesTable = document.getElementById('addresses-table');
+            const editAddressBtns = document.querySelectorAll('.editar-btn');
+            const removeAddressBtns = document.querySelectorAll('.remover-btn');
+            const saveAddressBtn = document.getElementById('save-address-btn');
+            const cancelAddressBtn = document.getElementById('cancel-address-btn');
+
+            editAddressBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const tr = this.closest('tr');
+                    const endereco = tr.querySelector('td').textContent;
+                    document.getElementById('endereco').value = endereco;
+                    editAddressForm.style.display = 'block';
+                    addressesTable.style.display = 'none';
+                });
+            });
+
+            editAddressForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const newAddress = document.getElementById('endereco').value;
+                // Aqui você pode adicionar a lógica para salvar o novo endereço
+                alert('Novo endereço salvo: ' + newAddress);
+                editAddressForm.style.display = 'none';
+                addressesTable.style.display = 'table';
+            });
+
+            cancelAddressBtn.addEventListener('click', function () {
+                editAddressForm.style.display = 'none';
+                addressesTable.style.display = 'table';
+            });
+
+            // Histórico de Pedidos
+            // Se precisar de funcionalidade de edição para o histórico de pedidos, pode ser adicionado aqui
+
+        });
+    </script>
+</body>
+
+</html>

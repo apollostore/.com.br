@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Pong</title>
+    <style>
+        /* Estilo para o corpo da página */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Impede rolagem vertical e horizontal */
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Estilo para o canvas */
+        canvas {
+            background-color: #000;
+            border: 1px solid #fff;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="gameCanvas" width="800" height="600"></canvas>
+
+<script>
+    // Obtendo o canvas e contexto
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Definindo constantes e variáveis do jogo
+    const WIDTH = canvas.width;
+    const HEIGHT = canvas.height;
+    const PLAYER_WIDTH = 10;
+    const PLAYER_HEIGHT = 100;
+    const BALL_RADIUS = 10;
+    const PADDLE_SPEED = 5;
+    const BALL_SPEED = 5;
+
+    let player1Y = HEIGHT / 2 - PLAYER_HEIGHT / 2;
+    let player2Y = HEIGHT / 2 - PLAYER_HEIGHT / 2;
+    let ballX = WIDTH / 2;
+    let ballY = HEIGHT / 2;
+    let ballSpeedX = BALL_SPEED;
+    let ballSpeedY = BALL_SPEED;
+    let player1Score = 0;
+    let player2Score = 0;
+
+    // Função principal para desenhar elementos do jogo
+    function draw() {
+        // Limpar o canvas
+        ctx.clearRect(0, 0, WIDTH, HEIGHT);
+
+        // Desenhar jogador 1
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(10, player1Y, PLAYER_WIDTH, PLAYER_HEIGHT);
+
+        // Desenhar jogador 2
+        ctx.fillRect(WIDTH - 20, player2Y, PLAYER_WIDTH, PLAYER_HEIGHT);
+
+        // Desenhar bola
+        ctx.beginPath();
+        ctx.arc(ballX, ballY, BALL_RADIUS, 0, Math.PI * 2);
+        ctx.fillStyle = '#fff';
+        ctx.fill();
+        ctx.closePath();
+
+        // Desenhar pontuação
+        ctx.font = '24px Arial';
+        ctx.fillText('Jogador 1: ' + player1Score, 50, 50);
+        ctx.fillText('Jogador 2: ' + player2Score, WIDTH - 200, 50);
+    }
+
+    // Função para atualizar a posição dos elementos do jogo
+    function update() {
+        // Movimentar a bola
+        ballX += ballSpeedX;
+        ballY += ballSpeedY;
+
+        // Colisão com as paredes superior e inferior
+        if (ballY + BALL_RADIUS >= HEIGHT || ballY - BALL_RADIUS <= 0) {
+            ballSpeedY = -ballSpeedY;
+        }
+
+        // Colisão com as barras dos jogadores
+        if (ballX - BALL_RADIUS <= PLAYER_WIDTH && ballY >= player1Y && ballY <= player1Y + PLAYER_HEIGHT) {
+            ballSpeedX = -ballSpeedX;
+        }
+        if (ballX + BALL_RADIUS >= WIDTH - PLAYER_WIDTH && ballY >= player2Y && ballY <= player2Y + PLAYER_HEIGHT) {
+            ballSpeedX = -ballSpeedX;
+        }
+
+        // Verificar se a bola passou da borda lateral
+        if (ballX - BALL_RADIUS <= 0) {
+            player2Score++;
+            resetBall();
+        }
+        if (ballX + BALL_RADIUS >= WIDTH) {
+            player1Score++;
+            resetBall();
+        }
+
+        // Movimentar o jogador 1 com as teclas W e S
+        if (keysDown['w'] && player1Y > 0) {
+            player1Y -= PADDLE_SPEED;
+        }
+        if (keysDown['s'] && player1Y < HEIGHT - PLAYER_HEIGHT) {
+            player1Y += PADDLE_SPEED;
+        }
+
+        // Movimentar o jogador 2 com as setas para cima e para baixo
+        if (keysDown['ArrowUp'] && player2Y > 0) {
+            player2Y -= PADDLE_SPEED;
+        }
+        if (keysDown['ArrowDown'] && player2Y < HEIGHT - PLAYER_HEIGHT) {
+            player2Y += PADDLE_SPEED;
+        }
+    }
+
+    // Função para resetar a bola ao centro
+    function resetBall() {
+        ballX = WIDTH / 2;
+        ballY = HEIGHT / 2;
+        ballSpeedX = -ballSpeedX; // Inverte a direção da bola
+    }
+
+    // Controle de teclas pressionadas
+    let keysDown = {};
+    window.addEventListener('keydown', function(e) {
+        keysDown[e.key] = true;
+    });
+    window.addEventListener('keyup', function(e) {
+        delete keysDown[e.key];
+    });
+
+    // Loop principal do jogo
+    function gameLoop() {
+        update();
+        draw();
+        requestAnimationFrame(gameLoop);
+    }
+
+    // Iniciar o jogo
+    gameLoop();
+</script>
+
+</body>
+</html>

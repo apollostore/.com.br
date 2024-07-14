@@ -1,0 +1,245 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.forms-container {
+    position: relative;
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 30px;
+    z-index: 1;
+}
+
+.signin-signup {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.sign-in-form,
+.sign-up-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    transition: transform 0.6s ease-in-out;
+}
+
+.sign-up-form {
+    display: none;
+}
+
+.title {
+    font-size: 2.2em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.input-field i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #333;
+}
+
+.input-field input {
+    width: calc(100% - 40px);
+    padding: 10px;
+    padding-left: 40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.input-field input:focus {
+    border-color: #800080;
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s;
+    outline: none;
+}
+
+.btn.solid {
+    background-color: #800080;
+    color: white;
+}
+
+.btn.transparent {
+    background-color: transparent;
+    border: 1px solid #800080;
+    color: #800080;
+}
+
+.btn.transparent:hover {
+    background-color: #800080;
+    color: white;
+}
+
+.panels-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    transition: transform 0.6s ease-in-out;
+    z-index: 1;
+}
+
+.panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    z-index: 1;
+    padding: 50px;
+    transition: transform 0.9s ease-in-out;
+}
+
+.left-panel {
+    pointer-events: all;
+    opacity: 1;
+}
+
+.right-panel {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.image {
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.9s ease-in-out;
+}
+
+.panel .content {
+    color: #333;
+    margin-bottom: 40px;
+}
+
+.panel .content h3 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.panel .content p {
+    color: #666;
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}
+
+.panel .content button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    outline: none;
+}
+
+.panel .content button:hover {
+    background-color: #800080;
+    color: white;
+}
+
+.right-panel.active {
+    pointer-events: all;
+    opacity: 1;
+}
+
+.right-panel.active .image {
+    transform: translateY(-30%);
+}
+
+.right-panel.active .content {
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.right-panel.active .content h3,
+.right-panel.active .content p {
+    opacity: 0;
+    transition: opacity 0.5s 0.2s ease-in-out;
+}
+
+@media (max-width: 870px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .panels-container {
+        grid-template-columns: 1fr;
+    }
+
+    .panel {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 570px) {
+    .container {
+        max-width: 100%;
+        border-radius: 0;
+    }
+
+    .panels-container {
+        grid-template-columns: 1fr;
+    }
+
+    .panel {
+        padding: 20px;
+    }
+}

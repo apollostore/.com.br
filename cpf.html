@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kratosy - Somos uma legião</title>
+    <style>
+        body {
+            background-color: #222;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: #ff4500;
+        }
+        .container {
+            text-align: center;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .output {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            width: 80%;
+            max-width: 500px;
+        }
+        .output p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Kratosy - Somos uma legião</h1>
+<div class="container">
+    <button onclick="showCPFOptions()">Consultar CPF</button>
+    <button onclick="generateCPF()">Gerar CPF e Consultar</button>
+    <button onclick="back()">Voltar</button>
+    <button onclick="exit()">Sair</button>
+</div>
+<div id="output" class="output" style="display:none;"></div>
+
+<script>
+    function showCPFOptions() {
+        let cpf = prompt("Informe o CPF a ser consultado (sem pontos ou traços):");
+        if (cpf) {
+            consultar(cpf);
+        }
+    }
+
+    function generateCPF() {
+        fetch('/generate-cpf')  // Precisa de um endpoint do servidor para gerar o CPF
+            .then(response => response.json())
+            .then(data => {
+                alert("O CPF gerado foi: " + data.cpf);
+                if (confirm("Deseja consultar?")) {
+                    consultar(data.cpf);
+                }
+            });
+    }
+
+    function consultar(cpf) {
+        fetch('/consultar?cpf=' + cpf)  // Precisa de um endpoint do servidor para consultar o CPF
+            .then(response => response.json())
+            .then(data => {
+                let outputDiv = document.getElementById('output');
+                outputDiv.style.display = 'block';
+                outputDiv.innerHTML = `
+                    <p>CPF: ${data.cpf}</p>
+                    <p>Nome: ${data.nome}</p>
+                    <p>Nascimento: ${data.nascimento}</p>
+                    <p>Nome da Mãe: ${data.nome_mae}</p>
+                    <p>Endereço: ${data.endereco}</p>
+                    <p>Complemento: ${data.complemento}</p>
+                    <p>Bairro: ${data.bairro}</p>
+                    <p>Cidade: ${data.cidade}</p>
+                    <p>CEP: ${data.cep}</p>
+                `;
+            });
+    }
+
+    function back() {
+        alert("Voltar");
+        // Implementar funcionalidade de voltar
+    }
+
+    function exit() {
+        alert("Somos uma legião. Saindo...");
+        // Implementar funcionalidade de sair
+    }
+</script>
+
+</body>
+</html>

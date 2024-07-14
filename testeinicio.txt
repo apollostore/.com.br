@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bem-vindo à Loja Apollo, sua loja brasileira online com as últimas tendências de moda, esportes e muito mais.">
+    <meta name="keywords" content="Loja Apollo, moda, esportes, futsal, streetwear, futebol, artigos gerais">
+    <meta name="author" content="Loja Apollo">
+    <title>Loja Apollo</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        /* Estilo para o corpo da página */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(45deg, #800080, #4B0082, #8A2BE2, #000000);
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease infinite;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+        @keyframes gradientBG {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+        header, nav, footer {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        section {
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            width: 80%;
+            margin: 20px 0;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        .product-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .product-container img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .btn {
+            background-color: #800080; /* Cor roxa */
+            color: white; /* Texto em branco */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #4B0082; /* Cor roxa mais escura ao passar o mouse */
+        }
+        .loading-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding-top: 200px;
+            font-size: 24px;
+            z-index: 1000;
+        }
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .music-player select {
+            background: none;
+            border: 1px solid #fff;
+            color: #fff;
+            font-size: 16px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .music-player option {
+            color: black;
+        }
+        .music-player button {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .music-player button:hover {
+            color: #4CAF50;
+        }
+        footer {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            color: #fff;
+        }
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Loja Apollo</h1>
+    <p>Loja Brasileira | 2024</p>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="#moda">Moda</a></li>
+        <li><a href="#esporte">Esporte</a></li>
+        <li><a href="#futsal">Futsal</a></li>
+        <li><a href="#streetwear">Streetwear</a></li>
+        <li><a href="#futebol">Futebol</a></li>
+        <li><a href="#geral">Geral</a></li>
+    </ul>
+</nav>
+
+<main>
+    <section id="moda">
+        <h2>Moda</h2>
+        <div class="product-container">
+            <img src="https://cf.shopee.com.br/file/fc0464c09ec4095a84e842d698ee419a" alt="Roupas de moda disponíveis na Loja Apollo">
+            <p>Confira nossa linha de moda com as últimas tendências e ofertas incríveis.</p>
+            <a href="moda.html" class="btn" onclick="showLoading('moda.html')">Ver mais</a>
+        </div>
+    </section>
+
+    <section id="esporte">
+        <h2>Esporte</h2>
+        <div class="product-container">
+            <img src="https://th.bing.com/th/id/R.f02b56b5afe5ef791c46980aa42e55fd?rik=xj6S9kgj%2bycr3Q&riu=http%3a%2f%2fwww.fiberoficial.com.br%2fcdn%2fshop%2farticles%2fequipamentos_esportivos.jpg%3fv%3d1687515226%26width%3d2048&ehk=ywDWC0Tn9lmYcp1xKdfLISVS%2fqxI6jMHjTf29wBoilk%3d&risl=&pid=ImgRaw&r=0" alt="Equipamentos esportivos na Loja Apollo">
+            <p>Explore nossa coleção de artigos esportivos para todas as modalidades.</p>
+            <a href="esporte.html" class="btn" onclick="showLoading('esporte.html')">Ver mais</a>
+        </div>
+    </section>
+
+    <section id="futsal">
+        <h2>Futsal</h2>
+        <div class="product-container">
+            <img src="https://escolaeducacao.com.br/wp-content/uploads/2020/07/esportes-mais-praticados-no-brasil-futsal.jpg" alt="Produtos para futsal na Loja Apollo">
+            <p>Descubra os melhores produtos para futsal, de uniformes a equipamentos.</p>
+            <a href="futsal.html" class="btn" onclick="showLoading('futsal.html')">Ver mais</a>
+        </div>
+    </section>
+
+    <section id="streetwear">
+        <h2>Streetwear</h2>
+        <div class="product-container">
+            <img src="https://ae01.alicdn.com/kf/Scd0b2a41c5814d4cab9421769a6a4a56F/Camisetas-masculinas-com-estampa-do-drag-o-engra-ado-streetwear-grande-gola-redonda-tops-de-manga.jpg" alt="Roupas streetwear na Loja Apollo">
+            <p>Produtos de alta qualidade para deixar sua Streetwear mais aconchegante e moderna.</p>
+            <a href="streetwear.html" class="btn" onclick="showLoading('streetwear.html')">Ver mais</a>
+        </div>
+    </section>
+
+    <section id="futebol">
+        <h2>Futebol</h2>
+        <div class="product-container">
+            <img src="https://media.istockphoto.com/photos/soccer-ball-and-soccer-shoes-picture-id1281283802?b=1&k=20&m=1281283802&s=170667a&w=0&h=g3xMCo2fYAb40qHxk_BvUkGBEJ9dH1z6tM-0u96U_Hw=" alt="Artigos de futebol na Loja Apollo">
+            <p>Equipamentos e acessórios esportivos para manter você ativo e em forma.</p>
+            <a href="futebol.html" class="btn" onclick="showLoading('futebol.html')">Ver mais</a>
+        </div>
+    </section>
+
+    <section id="geral">
+        <h2>Geral</h2>
+        <div class="product-container">
+            <img src="https://sm.pcmag.com/t/pcmag_uk/gallery/t/the-ultima/the-ultimate-gear-guide-for-gamers_hrqa.1200.jpg" alt="Artigos gerais na Loja Apollo">
+            <p>Artigos diversos para atender a todas as suas necessidades diárias.</p>
+            <a href="geral.html" class="btn" onclick="showLoading('geral.html')">Ver mais</a>
+        </div>
+    </section>
+</main>
+
+<div class="loading-screen" id="loadingScreen">
+    ⏳ 𝘾𝙖𝙧𝙧𝙚𝙜𝙖𝙣𝙙𝙤...
+</div>
+
+<div class="music-player">
+    <select id="musicSelector">
+        <option value="Dark Red.mp3">Dark Red</option>
+        <option value="NEW MAGIC WAND.mp3">New Magic Wand</option>
+        <option value="SHE.mp3">She - Tyler</option>
+        <option value="Pity - Me Adora.mp3">Me Adora - Pitty</option>
+        <option value="Hells Bells (1).mp3">Hells Bells - ACDC</option>
+        <option value="WIU - Coração de Gelo.mp3">Coração de Gelo - Wiu</option>
+        <option value="estilocachorro.mp3">Estilo Cachorro</option>
+        <option value="00s.mp3">Racionais 00s</option>
+        <option value="God Is.mp3">God Is - Kanye West</option>
+    </select>
+    <audio id="audioPlayer" controls>
+        <source src="Dark Red.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+    <button onclick="playMusic()">Play</button>
+    <button onclick="pauseMusic()">Pause</button>
+</div>
+
+<footer>
+    <p>&copy; 2024 Loja Apollo. Todos os direitos reservados.</p>
+</footer>
+
+<script>
+    function showLoading(url) {
+        var loadingScreen = document.getElementById('loadingScreen');
+        loadingScreen.style.display = 'block';
+        setTimeout(function() {
+            window.location.href = url;
+        }, 2000); // Simula um tempo de carregamento de 2 segundos
+    }
+
+    var audioPlayer = document.getElementById('audioPlayer');
+    var musicSelector = document.getElementById('musicSelector');
+
+    musicSelector.addEventListener('change', function() {
+        audioPlayer.src = this.value;
+        audioPlayer.play();
+    });
+
+    function playMusic() {
+        audioPlayer.play();
+    }
+
+    function pauseMusic() {
+        audioPlayer.pause();
+    }
+</script>
+
+</body>
+</html>

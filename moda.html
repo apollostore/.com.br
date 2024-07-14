@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Loja Apollo - Moda">
+    <meta name="author" content="Loja Apollo">
+    <title>Loja Apollo - Moda</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        /* Estilos são mantidos aqui */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(45deg, #800080, #4B0082, #8A2BE2, #000000);
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease infinite;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        @keyframes gradientBG {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+        header, nav, footer {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding: 20px 0;
+        }
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 0 10px;
+        }
+        .product-item {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            width: 300px;
+            padding: 20px;
+            text-align: center;
+            position: relative; /* Para alinhar o preço */
+        }
+        .product-item img {
+            width: 75%;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .product-item p {
+            margin-bottom: 10px;
+        }
+        .product-item .btn-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto; /* Alinha o conteúdo ao final do container */
+        }
+        .product-item .btn {
+            background-color: #800080; /* Cor roxa */
+            color: white; /* Texto em branco */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .product-item .btn:hover {
+            background-color: #4B0082; /* Cor roxa mais escura ao passar o mouse */
+        }
+        .product-item .price {
+            font-size: 18px;
+            color: #fff; /* Cor do texto do preço (branco) */
+        }
+        .loading-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding-top: 200px;
+            font-size: 24px;
+            z-index: 1000;
+        }
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .music-player select {
+            background: none;
+            border: 1px solid #fff;
+            color: #fff;
+            font-size: 16px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .music-player option {
+            color: black;
+        }
+        .music-player button {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .music-player button:hover {
+            color: #4CAF50;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-content {
+            background-color: #800080; /* Cor de fundo roxa */
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            max-width: 80%;
+            color: #fff; /* Cor do texto branco */
+            position: relative;
+        }
+        .modal-content h3 {
+            margin-bottom: 10px;
+        }
+        .modal-content p {
+            margin-bottom: 20px;
+        }
+        .modal-content .whatsapp-link {
+            display: block;
+            background-color: #25D366; /* Cor do WhatsApp */
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .modal-content .whatsapp-link:hover {
+            background-color: #128C7E; /* Cor do WhatsApp mais escura ao passar o mouse */
+        }
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        .search-bar {
+            width: 100%;
+            max-width: 600px;
+            margin: 10px auto;
+            display: flex;
+            justify-content: center;
+        }
+        .search-bar input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        .search-bar button {
+            background-color: #800080;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+        }
+        .search-bar button:hover {
+            background-color: #4B0082;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Loja Apollo</h1>
+    <p>Loja Brasileira | 2024</p>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="#camisas">Camisas</a></li>
+        <li><a href="#shorts">Shorts</a></li>
+        <li><a href="#calcas">Calças</a></li>
+        <li><a href="#geral">Geral</a></li>
+    </ul>
+</nav>
+
+<div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Buscar produtos...">
+    <button onclick="searchProducts()">Buscar</button>
+</div>
+
+<main>
+    <section id="camisas">
+        <h2 class="section-title">Camisas</h2>
+        <div class="product-container">
+            <div class="product-item">
+                <img src="camisa1.png" alt="Camisa GearHead Japonesa">
+                <p class="price">Camisa GearHead Japonesa</p>
+                <p class="price">R$ 45,00</p>
+                <div class="btn-container">
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+            </div>
+            <div class="product-item">
+                <img src="camisa2.png" alt="Camisa Anti Social .S Club">
+                <p class="price">Camisa Anti Social .S Club</p>
+                <p class="price">R$ 45,00</p>
+                <div class="btn-container">
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+            </div>
+            <div class="product-item">
+                <img src="camisa3.png" alt="Camisa Golias Asteca">
+                <p class="price">Camisa Golias Asteca</p>
+                <p class="price">R$ 37,00</p>
+                <div class="btn-container">
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="shorts">
+        <h2 class="section-title">Shorts</h2>
+        <div class="product-container">
+            <div class="product-item">
+                <img src="short1.png" alt="Kit c/3 shorts dryit">
+                <p class="price">Kit c/3 shorts dryit</p>
+                <p class="price">R$ 25,00 - 65,00</p>
+                <div class="btn-container">
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+            </div>
+            <div class="product-item">
+                <img src="short2.png" alt="Kit c/3 shorts dryit">
+                <p class="price">Kit c/3 shorts dryit</p>
+                <p class="price">R$ 25,00 - 65,00</p>
+                <div class="btn-container">
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+            </div>
+            <div class="product-item">
+                <img src="short3.png" alt="Kit c/3 shorts dryit">
+                <p class="price">Kit c/3 shorts dryit</p>
+                <p class="price">R$ 25,00 - 65,00</p>
+                <div class="btn-container">
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="calcas">
+        <h2 class="section-title">Calças</h2>
+        <div class="product-container">
+            <div class="product-item">
+                <img src="calca1.png" alt="Calça jeans clássica">
+                <p class="price">Calça jeans clássica</p>
+                <p class="price">R$ 129,90</p>
+                <div class="btn-container">
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+            </div>
+            <div class="product-item">
+                <img src="calca2.png" alt="Calça esportiva">
+                <p class="price">Calça esportiva</p>
+                <p class="price">R$ 89,90</p>
+                <div class="btn-container">
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+            </div>
+            <div class="product-item">
+                <img src="calca3.png" alt="Calça social elegante">
+                <p class="price">Calça social elegante</p>
+                <p class="price">R$ 149,90</p>
+                <div class="btn-container">
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div class="loading-screen" id="loadingScreen">
+    ⏳ Carregando...
+</div>
+
+<div class="modal" id="modalWhatsapp">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <h3>Entre em contato pelo WhatsApp para finalizar a compra:</h3>
+        <p>Envie uma mensagem para o número (49) 989018917 informando o nome do produto que deseja comprar.</p>
+        <a href="https://wa.me/5549989018917?text=Olá!%20Gostaria%20de%20comprar%20o%20produto:%20" class="whatsapp-link" target="_blank">Enviar WhatsApp</a>
+    </div>
+</div>
+
+<div class="music-player">
+    <select id="musicSelector">
+        <option value="Dark Red.mp3">Dark Red</option>
+        <option value="NEW MAGIC WAND.mp3">New Magic Wand</option>
+        <option value="SHE.mp3">She - Tyler</option>
+        <option value="Pity - Me Adora.mp3">Me Adora - Pitty</option>
+        <option value="Hells Bells (1).mp3">Hells Bells - ACDC</option>
+        <option value="WIU - Coração de Gelo.mp3">Coração de Gelo - Wiu</option>
+        <option value="estilocachorro.mp3">Estilo Cachorro</option>
+        <option value="00s.mp3">Racionais 00s</option>
+        <option value="God Is.mp3">God Is - Kanye West</option>
+    </select>
+    <audio id="audioPlayer" controls>
+        <source src="Dark Red.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+    <button onclick="playMusic()">Play</button>
+    <button onclick="pauseMusic()">Pause</button>
+</div>
+
+<footer>
+    <p>&copy; 2024 Loja Apollo. Todos os direitos reservados.</p>
+</footer>
+
+<script>
+    var audioPlayer = document.getElementById('audioPlayer');
+    var musicSelector = document.getElementById('musicSelector');
+
+    musicSelector.addEventListener('change', function() {
+        audioPlayer.src = this.value;
+        audioPlayer.play();
+    });
+
+    function playMusic() {
+        audioPlayer.play();
+    }
+
+    function pauseMusic() {
+        audioPlayer.pause();
+    }
+
+    // Modal de WhatsApp ao clicar em "Comprar"
+    var buyButtons = document.querySelectorAll('.buy-btn');
+
+    buyButtons.forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            document.getElementById('modalWhatsapp').style.display = 'flex';
+        });
+    });
+
+    // Fechar modal ao clicar no botão de fechar ("x")
+    function closeModal() {
+        document.getElementById('modalWhatsapp').style.display = 'none';
+    }
+
+    function searchProducts() {
+        var input = document.getElementById('searchInput');
+        var filter = input.value.toLowerCase();
+        var productContainers = document.getElementsByClassName('product-item');
+
+        for (var i = 0; i < productContainers.length; i++) {
+            var product = productContainers[i];
+            var productName = product.getElementsByTagName('p')[0].innerText.toLowerCase();
+
+            if (productName.includes(filter)) {
+                product.style.display = '';
+            } else {
+                product.style.display = 'none';
+            }
+        }
+    }
+</script>
+
+</body>
+</html>

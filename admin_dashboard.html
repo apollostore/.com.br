@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Painel Administrativo - Loja Apollo">
+    <meta name="author" content="Loja Apollo">
+    <title>Painel Administrativo - Loja Apollo</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(45deg, #800080, #4B0082, #8A2BE2, #000000);
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease infinite;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        @keyframes gradientBG {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+        header, nav, footer {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding: 20px 0;
+        }
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .content {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            width: 80%;
+            padding: 20px;
+            text-align: center;
+        }
+        .sales-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .sales-table th, .sales-table td {
+            border: 1px solid #fff;
+            padding: 10px;
+            text-align: center;
+            color: #fff;
+        }
+        .sales-table th {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .sales-table td {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        .action-btn {
+            background-color: #800080;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 5px;
+            text-decoration: none;
+        }
+        .action-btn:hover {
+            background-color: #4B0082;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background-color: #800080;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            max-width: 80%;
+            color: #fff;
+            position: relative;
+        }
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+        .chart-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        .search-bar {
+            width: 100%;
+            max-width: 600px;
+            margin: 10px auto;
+            display: flex;
+            justify-content: center;
+        }
+        .search-bar input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        .search-bar button {
+            background-color: #800080;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+        }
+        .search-bar button:hover {
+            background-color: #4B0082;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<header>
+    <h1>Painel Administrativo - Loja Apollo</h1>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="admin_dashboard.html">Início</a></li>
+        <li><a href="#gerenciar-produtos">Gerenciar Produtos</a></li>
+        <li><a href="#estatisticas">Estatísticas</a></li>
+    </ul>
+</nav>
+
+<div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Buscar produtos...">
+    <button onclick="searchProducts()">Buscar</button>
+</div>
+
+<main>
+    <section id="gerenciar-produtos">
+        <h2 class="section-title">Gerenciar Produtos</h2>
+        <div class="content">
+            <button class="action-btn" onclick="openAddProductModal()">Adicionar Produto</button>
+            <table class="sales-table" id="productTable">
+                <thead>
+                    <tr>
+                        <th>Categoria</th>
+                        <th>Produto</th>
+                        <th>Preço</th>
+                        <th>Quantidade Vendida</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Camisas</td>
+                        <td>Camisa GearHead Japonesa</td>
+                        <td>R$ 45,00</td>
+                        <td>0</td>
+                        <td>
+                            <button class="action-btn" onclick="editProduct(this)">Editar</button>
+                            <button class="action-btn" onclick="deleteProduct(this)">Remover</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Shorts</td>
+                        <td>Kit c/3 shorts dryit</td>
+                        <td>R$ 25,00 - 65,00</td>
+                        <td>0</td>
+                        <td>
+                            <button class="action-btn" onclick="editProduct(this)">Editar</button>
+                            <button class="action-btn" onclick="deleteProduct(this)">Remover</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Calças</td>
+                        <td>Calça jeans clássica</td>
+                        <td>R$ 129,90</td>
+                        <td>0</td>
+                        <td>
+                            <button class="action-btn" onclick="editProduct(this)">Editar</button>
+                            <button class="action-btn" onclick="deleteProduct(this)">Remover</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="estatisticas">
+        <h2 class="section-title">Estatísticas</h2>
+        <div class="content">
+            <div class="chart-container">
+                <canvas id="salesChart"></canvas>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 Loja Apollo. Todos os direitos reservados.</p>
+</footer>
+
+<!-- Modal para adicionar produto -->
+<div class="modal" id="addProductModal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal('addProductModal')">&times;</span>
+        <h3>Adicionar Produto</h3>
+        <div class="form-group">
+            <label for="category">Categoria</label>
+            <input type="text" id="category" placeholder="Categoria">
+        </div>
+        <div class="form-group">
+            <label for="product">Produto</label>
+            <input type="text" id="product" placeholder="Produto">
+        </div>
+        <div class="form-group">
+            <label for="price">Preço</label>
+            <input type="text" id="price" placeholder="Preço">
+        </div>
+        <div class="form-group">
+            <button class="action-btn" onclick="addProduct()">Adicionar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Modal functions
+    function openAddProductModal() {
+        document.getElementById('addProductModal').style.display = 'flex';
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+
+    // Product management functions
+    function addProduct() {
+        let category = document.getElementById('category').value;
+        let product = document.getElementById('product').value;
+        let price = document.getElementById('price').value;
+
+        // Validate inputs (for simplicity, validation is not implemented here)
+
+        // Append new row to the table
+        let table = document.getElementById('productTable').getElementsByTagName('tbody')[0];
+        let newRow = table.insertRow();
+        newRow.innerHTML = `<td>${category}</td><td>${product}</td><td>${price}</td><td>0</td><td>
+                            <button class="action-btn" onclick="editProduct(this)">Editar</button>
+                            <button class="action-btn" onclick="deleteProduct(this)">Remover</button>
+                            </td>`;
+
+        // Close modal after adding product
+        closeModal('addProductModal');
+    }
+
+    function editProduct(button) {
+        let row = button.closest('tr');
+        let cells = row.cells;
+        let category = cells[0].textContent;
+        let product = cells[1].textContent;
+        let price = cells[2].textContent;
+
+        // Example: Open a modal to edit product details (not implemented here for brevity)
+        // You can implement similar modal logic as in addProduct function
+        alert(`Implement your edit logic for ${category} - ${product} - ${price}`);
+    }
+
+    function deleteProduct(button) {
+        let row = button.closest('tr');
+        row.remove();
+
+        // Example: Update total sales or any other necessary logic
+        // For simplicity, we assume a straightforward delete without additional logic
+    }
+
+    // Search functionality
+    function searchProducts() {
+        let input = document.getElementById('searchInput').value.toUpperCase();
+        let table = document.getElementById('productTable');
+        let rows = table.getElementsByTagName('tr');
+
+        for (let row of rows) {
+            let cells = row.getElementsByTagName('td');
+            let found = false;
+            for (let cell of cells) {
+                if (cell.textContent.toUpperCase().indexOf(input) > -1) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    }
+
+    // Chart.js for sales chart
+    let ctx = document.getElementById('salesChart').getContext('2d');
+    let salesChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Camisas', 'Shorts', 'Calças'],
+            datasets: [{
+                label: 'Vendas',
+                data: [0, 0, 0],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Simulate initial sales data (for demo purposes)
+    function updateSalesData() {
+        let products = document.getElementById('productTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+        let salesData = [0, 0, 0];
+
+        for (let i = 0; i < products.length; i++) {
+            let category = products[i].getElementsByTagName('td')[0].textContent;
+            let quantitySold = parseInt(products[i].getElementsByTagName('td')[3].textContent);
+            
+            switch (category) {
+                case 'Camisas':
+                    salesData[0] += quantitySold;
+                    break;
+                case 'Shorts':
+                    salesData[1] += quantitySold;
+                    break;
+                case 'Calças':
+                    salesData[2] += quantitySold;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        salesChart.data.datasets[0].data = salesData;
+        salesChart.update();
+    }
+
+    // Initial update
+    updateSalesData();
+</script>
+
+</body>
+</html>
