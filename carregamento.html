@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bem-vindo à Loja Apollo, sua loja brasileira online com as últimas tendências de moda, esportes e muito mais.">
+    <meta name="keywords" content="Loja Apollo, moda, esportes, futsal, streetwear, futebol, artigos gerais">
+    <meta name="author" content="Loja Apollo">
+    <title>Loja Apollo</title>
+    <style>
+        /* Estilo para o body */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #800080; /* Cor de fundo roxo */
+            color: #fff; /* Cor do texto branco */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* Evita barra de rolagem vertical */
+        }
+
+        /* Estilo para a tela de carregamento */
+        .loading-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .spinner {
+            border: 8px solid rgba(255, 255, 255, 0.3); /* Cor e espessura da borda do spinner */
+            border-top: 8px solid #fff; /* Cor da borda superior do spinner */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite; /* Animação do spinner */
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Conteúdo principal omitido para focar na tela de carregamento -->
+
+    <!-- Elemento para a tela de carregamento -->
+    <div class="loading-screen">
+        <div class="spinner"></div>
+        <p class="loading-text"><b>Carregando...</b></p>
+    </div>
+
+    <!-- Script para simular o carregamento e redirecionamento -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simula o carregamento por 1.5 segundos (1500 milissegundos)
+            setTimeout(function() {
+                window.location.href = 'indexreal.html'; // Redireciona para a página inicial
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
