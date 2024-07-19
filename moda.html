@@ -8,27 +8,17 @@
     <title>Loja Apollo - Moda</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>
-        /* Estilos são mantidos aqui */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(45deg, #800080, #4B0082, #8A2BE2, #000000);
-            background-size: 400% 400%;
-            animation: gradientBG 20s ease infinite;
+            background: url('fundo1.png') no-repeat center center fixed;
+            background-size: cover;
             color: #fff;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-        }
-        @keyframes gradientBG {
-            0%, 100% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
         }
         header, nav, footer {
             background-color: rgba(0, 0, 0, 0.7);
@@ -48,6 +38,37 @@
         nav ul li a {
             color: #fff;
             text-decoration: none;
+            font-weight: bold;
+        }
+        nav ul li a:hover {
+            color: #FFFFFF;
+        }
+        .search-bar {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+        .search-bar input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        .search-bar button {
+            background-color: #FFFFFF;
+            color: #000000;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .search-bar button:hover {
+            background-color: #008575;
         }
         main {
             display: flex;
@@ -57,56 +78,77 @@
             padding: 20px 0;
         }
         .section-title {
-            font-size: 24px;
+            font-size: 28px;
             margin-bottom: 20px;
+            color: #FFFFFF;
+            text-shadow: 2px 2px #000;
         }
         .product-container {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            flex-wrap: nowrap;
+            overflow-x: auto;
             gap: 20px;
-            padding: 0 10px;
+            padding: 10px;
+            scrollbar-width: none; /* For Firefox */
         }
-        .product-item {
-            background-color: rgba(255, 255, 255, 0.3);
+        .product-container::-webkit-scrollbar {
+            display: none; /* For Chrome, Safari, and Opera */
+        }
+        .product {
+            background-color: rgba(0, 0, 0, 0.8);
             border-radius: 10px;
-            width: 300px;
+            width: 250px;
             padding: 20px;
             text-align: center;
-            position: relative; /* Para alinhar o preço */
+            color: #FFFFFF;
+            transition: transform 0.3s;
         }
-        .product-item img {
-            width: 75%;
-            object-fit: cover;
+        .product:hover {
+            transform: scale(1.05);
+        }
+        .product img {
+            width: 100%;
             border-radius: 10px;
             margin-bottom: 10px;
         }
-        .product-item p {
-            margin-bottom: 10px;
+        .product p {
+            margin: 10px 0;
         }
-        .product-item .btn-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto; /* Alinha o conteúdo ao final do container */
+        .product .price {
+            font-size: 18px;
+            color: #FFFFFF;
         }
-        .product-item .btn {
-            background-color: #800080; /* Cor roxa */
-            color: white; /* Texto em branco */
+        .btn {
+            background-color: #FFFFFF;
+            color: #000000;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
             text-decoration: none;
             display: inline-block;
+            margin-top: 10px;
         }
-        .product-item .btn:hover {
-            background-color: #4B0082; /* Cor roxa mais escura ao passar o mouse */
+        .btn:hover {
+            background-color: #008575;
         }
-        .product-item .price {
-            font-size: 18px;
-            color: #fff; /* Cor do texto do preço (branco) */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .scroll-button {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #FFFFFF;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 24px;
+            border-radius: 5px;
+        }
+        .scroll-button:hover {
+            background-color: #008575;
         }
         .loading-screen {
             display: none;
@@ -122,38 +164,6 @@
             font-size: 24px;
             z-index: 1000;
         }
-        .music-player {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 10px;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-        }
-        .music-player select {
-            background: none;
-            border: 1px solid #fff;
-            color: #fff;
-            font-size: 16px;
-            margin-right: 10px;
-            cursor: pointer;
-        }
-        .music-player option {
-            color: black;
-        }
-        .music-player button {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 16px;
-            margin-left: 10px;
-            cursor: pointer;
-        }
-        .music-player button:hover {
-            color: #4CAF50;
-        }
         .modal {
             display: none;
             position: fixed;
@@ -168,12 +178,12 @@
             padding: 20px;
         }
         .modal-content {
-            background-color: #800080; /* Cor de fundo roxa */
+            background-color: #000000;
             border-radius: 10px;
             padding: 20px;
             text-align: center;
             max-width: 80%;
-            color: #fff; /* Cor do texto branco */
+            color: #fff;
             position: relative;
         }
         .modal-content h3 {
@@ -184,7 +194,7 @@
         }
         .modal-content .whatsapp-link {
             display: block;
-            background-color: #25D366; /* Cor do WhatsApp */
+            background-color: #25D366;
             color: #fff;
             text-decoration: none;
             padding: 10px 20px;
@@ -192,7 +202,7 @@
             transition: background-color 0.3s;
         }
         .modal-content .whatsapp-link:hover {
-            background-color: #128C7E; /* Cor do WhatsApp mais escura ao passar o mouse */
+            background-color: #128C7E;
         }
         .modal-close {
             position: absolute;
@@ -202,236 +212,288 @@
             cursor: pointer;
             font-size: 20px;
         }
-        .search-bar {
-            width: 100%;
-            max-width: 600px;
-            margin: 10px auto;
+        .overlay {
             display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
             justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
-        .search-bar input[type="text"] {
-            width: 80%;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            margin-right: 10px;
-            font-size: 16px;
+        .message-box {
+            background-color: #002e24;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            max-width: 80%;
+            color: #fff;
+            position: relative;
         }
-        .search-bar button {
-            background-color: #800080;
-            color: white;
+        .message-box h1 {
+            margin-bottom: 10px;
+        }
+        .message-box p {
+            margin-bottom: 20px;
+        }
+        .message-box .btn {
+            background-color: #00796b;
+            color: #fff;
+            text-decoration: none;
+            display: inline-block;
             padding: 10px 20px;
-            border: none;
             border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            font-size: 16px;
+            font-weight: bold;
         }
-        .search-bar button:hover {
-            background-color: #4B0082;
+        .message-box .btn:hover {
+            background-color: #008575;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 24px;
+            border: none;
+            background: transparent;
         }
     </style>
 </head>
 <body>
-
-<header>
-    <h1>Loja Apollo</h1>
-    <p>Loja Brasileira | 2024</p>
-</header>
-
-<nav>
-    <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="#camisas">Camisas</a></li>
-        <li><a href="#shorts">Shorts</a></li>
-        <li><a href="#calcas">Calças</a></li>
-        <li><a href="#geral">Geral</a></li>
-    </ul>
-</nav>
-
-<div class="search-bar">
-    <input type="text" id="searchInput" placeholder="Buscar produtos...">
-    <button onclick="searchProducts()">Buscar</button>
-</div>
-
-<main>
-    <section id="camisas">
-        <h2 class="section-title">Camisas</h2>
-        <div class="product-container">
-            <div class="product-item">
-                <img src="camisa1.png" alt="Camisa GearHead Japonesa">
-                <p class="price">Camisa GearHead Japonesa</p>
-                <p class="price">R$ 45,00</p>
-                <div class="btn-container">
-                    <a href="#" class="btn buy-btn">Comprar</a>
-                </div>
-            </div>
-            <div class="product-item">
-                <img src="camisa2.png" alt="Camisa Anti Social .S Club">
-                <p class="price">Camisa Anti Social .S Club</p>
-                <p class="price">R$ 45,00</p>
-                <div class="btn-container">
-                    <a href="#" class="btn buy-btn">Comprar</a>
-                </div>
-            </div>
-            <div class="product-item">
-                <img src="camisa3.png" alt="Camisa Golias Asteca">
-                <p class="price">Camisa Golias Asteca</p>
-                <p class="price">R$ 37,00</p>
-                <div class="btn-container">
-                    <a href="#" class="btn buy-btn">Comprar</a>
-                </div>
-            </div>
+    <!-- Caixa de Mensagem -->
+    <div class="overlay">
+        <div class="message-box">
+            <button class="close-btn" onclick="closeMessage()">×</button>
+            <h1>🎉 Boas-vindas à nossa loja!</h1>
+            <p>Temos <span class="highlight">promoções incríveis</span> e novos <span class="highlight">produtos toda semana</span> para você!</p>
+            <a href="promocoes.html" class="btn">Descubra Agora</a> <!-- Link para a página de promoções -->
         </div>
-    </section>
-
-    <section id="shorts">
-        <h2 class="section-title">Shorts</h2>
-        <div class="product-container">
-            <div class="product-item">
-                <img src="short1.png" alt="Kit c/3 shorts dryit">
-                <p class="price">Kit c/3 shorts dryit</p>
-                <p class="price">R$ 25,00 - 65,00</p>
-                <div class="btn-container">
-                    <a href="#" class="btn buy-btn">Comprar</a>
-                </div>
-            </div>
-            <div class="product-item">
-                <img src="short2.png" alt="Kit c/3 shorts dryit">
-                <p class="price">Kit c/3 shorts dryit</p>
-                <p class="price">R$ 25,00 - 65,00</p>
-                <div class="btn-container">
-                    <a href="#" class="btn buy-btn">Comprar</a>
-                </div>
-            </div>
-            <div class="product-item">
-                <img src="short3.png" alt="Kit c/3 shorts dryit">
-                <p class="price">Kit c/3 shorts dryit</p>
-                <p class="price">R$ 25,00 - 65,00</p>
-                <div class="btn-container">
-                    <a href="#" class="btn buy-btn">Comprar</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="calcas">
-        <h2 class="section-title">Calças</h2>
-        <div class="product-container">
-            <div class="product-item">
-                <img src="calca1.png" alt="Calça jeans clássica">
-                <p class="price">Calça jeans clássica</p>
-                <p class="price">R$ 129,90</p>
-                <div class="btn-container">
-                    <a href="#" class="btn buy-btn">Comprar</a>
-                </div>
-            </div>
-            <div class="product-item">
-                <img src="calca2.png" alt="Calça esportiva">
-                <p class="price">Calça esportiva</p>
-                <p class="price">R$ 89,90</p>
-                <div class="btn-container">
-                    <a href="#" class="btn buy-btn">Comprar</a>
-                </div>
-            </div>
-            <div class="product-item">
-                <img src="calca3.png" alt="Calça social elegante">
-                <p class="price">Calça social elegante</p>
-                <p class="price">R$ 149,90</p>
-                <div class="btn-container">
-                    <a href="#" class="btn buy-btn">Comprar</a>
-                </div>
-            </div>
-        </div>
-    </section>
-</main>
-
-<div class="loading-screen" id="loadingScreen">
-    ⏳ Carregando...
-</div>
-
-<div class="modal" id="modalWhatsapp">
-    <div class="modal-content">
-        <span class="modal-close" onclick="closeModal()">&times;</span>
-        <h3>Entre em contato pelo WhatsApp para finalizar a compra:</h3>
-        <p>Envie uma mensagem para o número (49) 989018917 informando o nome do produto que deseja comprar.</p>
-        <a href="https://wa.me/5549989018917?text=Olá!%20Gostaria%20de%20comprar%20o%20produto:%20" class="whatsapp-link" target="_blank">Enviar WhatsApp</a>
     </div>
-</div>
 
-<div class="music-player">
-    <select id="musicSelector">
-        <option value="Dark Red.mp3">Dark Red</option>
-        <option value="NEW MAGIC WAND.mp3">New Magic Wand</option>
-        <option value="She.mp3">She - Tyler</option>
-        <option value="Pity - Me Adora.mp3">Me Adora - Pitty</option>
-        <option value="Hells Bells (1).mp3">Hells Bells - ACDC</option>
-        <option value="WIU - Coração de Gelo.mp3">Coração de Gelo - Wiu</option>
-        <option value="estilocachorro.mp3">Estilo Cachorro</option>
-        <option value="00s.mp3">Racionais 00s</option>
-        <option value="God Is.mp3">God Is - Kanye West</option>
-    </select>
-    <audio id="audioPlayer" controls>
-        <source src="Dark Red.mp3" type="audio/mpeg">
-        Seu navegador não suporta o elemento de áudio.
-    </audio>
-    <button onclick="playMusic()">Play</button>
-    <button onclick="pauseMusic()">Pause</button>
-</div>
+    <!-- Cabeçalho -->
+    <header>
+        <h1>Loja Apollo</h1>
+        <p>Loja Brasileira | 2024</p>
+    </header>
 
-<footer>
-    <p>&copy; 2024 Loja Apollo. Todos os direitos reservados.</p>
-</footer>
+    <!-- Navegação -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="#camisas">Camisas</a></li>
+            <li><a href="#shorts">Shorts</a></li>
+            <li><a href="#calcas">Calças</a></li>
+            <li><a href="#geral">Geral</a></li>
+        </ul>
+    </nav>
 
-<script>
-    var audioPlayer = document.getElementById('audioPlayer');
-    var musicSelector = document.getElementById('musicSelector');
+    <!-- Barra de Pesquisa -->
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Buscar produtos..." onkeyup="searchProducts()">
+        <button onclick="searchProducts()">Buscar</button>
+    </div>
 
-    musicSelector.addEventListener('change', function() {
-        audioPlayer.src = this.value;
-        audioPlayer.play();
-    });
+    <!-- Conteúdo Principal -->
+    <main>
+        <section id="camisas">
+            <h2 class="section-title">Camisas</h2>
+            <div class="product-container" id="camisasContainer">
+                <div class="product">
+                    <img src="camisa1.png" alt="Camisa GearHead Japonesa">
+                    <p>Camisa GearHead Japonesa</p>
+                    <p class="price">R$ 45,00</p>
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+                <div class="product">
+                    <img src="camisa2.png" alt="Camisa Anti Social .S Club">
+                    <p>Camisa Anti Social .S Club</p>
+                    <p class="price">R$ 45,00</p>
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+                <div class="product">
+                    <img src="camisa3.png" alt="Camisa Golias Asteca">
+                    <p>Camisa Golias Asteca</p>
+                    <p class="price">R$ 37,00</p>
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+                <div class="product">
+                    <img src="camisa3.png" alt="Camisa Golias Asteca">
+                    <p>Camisa Golias Asteca</p>
+                    <p class="price">R$ 37,00</p>
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+                <div class="product">
+                    <img src="camisa3.png" alt="Camisa Golias Asteca">
+                    <p>Camisa Golias Asteca</p>
+                    <p class="price">R$ 37,00</p>
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+                <div class="product">
+                    <img src="camisa3.png" alt="Camisa Golias Asteca">
+                    <p>Camisa Golias Asteca</p>
+                    <p class="price">R$ 37,00</p>
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+            </div>
+            <div class="button-container">
+                <button class="scroll-button" onclick="scrollProducts('camisasContainer', 'left')">⬅️</button>
+                <button class="scroll-button" onclick="scrollProducts('camisasContainer', 'right')">➡️</button>
+            </div>
+        </section>
 
-    function playMusic() {
-        audioPlayer.play();
-    }
+        <section id="shorts">
+            <h2 class="section-title">Shorts</h2>
+            <div class="product-container" id="shortsContainer">
+                <div class="product">
+                    <img src="short1.png" alt="Kit c/3 Shorts de Banho Masculino">
+                    <p>Kit c/3 Shorts de Banho Masculino</p>
+                    <p class="price">R$ 65,00</p>
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+                <div class="product">
+                    <img src="short2.png" alt="Short Estampado Casual">
+                    <p>Short Estampado Casual</p>
+                    <p class="price">R$ 45,00</p>
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+                <div class="product">
+                    <img src="short3.png" alt="Short Esportivo com Bolso">
+                    <p>Short Esportivo com Bolso</p>
+                    <p class="price">R$ 50,00</p>
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+            </div>
+            <div class="button-container">
+                <button class="scroll-button" onclick="scrollProducts('shortsContainer', 'left')">⬅️</button>
+                <button class="scroll-button" onclick="scrollProducts('shortsContainer', 'right')">➡️</button>
+            </div>
+        </section>
 
-    function pauseMusic() {
-        audioPlayer.pause();
-    }
+        <section id="calcas">
+            <h2 class="section-title">Calças</h2>
+            <div class="product-container" id="calcasContainer">
+                <div class="product">
+                    <img src="calca1.png" alt="Calça Jeans Clássica">
+                    <p>Calça Jeans Clássica</p>
+                    <p class="price">R$ 129,90</p>
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+                <div class="product">
+                    <img src="calca2.png" alt="Calça Esportiva">
+                    <p>Calça Esportiva</p>
+                    <p class="price">R$ 89,90</p>
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+                <div class="product">
+                    <img src="calca3.png" alt="Calça Social Elegante">
+                    <p>Calça Social Elegante</p>
+                    <p class="price">R$ 149,90</p>
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+            </div>
+            <div class="button-container">
+                <button class="scroll-button" onclick="scrollProducts('calcasContainer', 'left')">⬅️</button>
+                <button class="scroll-button" onclick="scrollProducts('calcasContainer', 'right')">➡️</button>
+            </div>
+        </section>
 
-    // Modal de WhatsApp ao clicar em "Comprar"
-    var buyButtons = document.querySelectorAll('.buy-btn');
+        <section id="geral">
+            <h2 class="section-title">Geral</h2>
+            <div class="product-container" id="geralContainer">
+                <div class="product">
+                    <img src="produto1.png" alt="Produto Geral 1">
+                    <p>Produto Geral 1</p>
+                    <p class="price">R$ 55,00</p>
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+                <div class="product">
+                    <img src="produto2.png" alt="Produto Geral 2">
+                    <p>Produto Geral 2</p>
+                    <p class="price">R$ 70,00</p>
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+                <div class="product">
+                    <img src="produto3.png" alt="Produto Geral 3">
+                    <p>Produto Geral 3</p>
+                    <p class="price">R$ 85,00</p>
+                    <a href="#" class="btn buy-btn">Comprar</a>
+                </div>
+            </div>
+            <div class="button-container">
+                <button class="scroll-button" onclick="scrollProducts('geralContainer', 'left')">⬅️</button>
+                <button class="scroll-button" onclick="scrollProducts('geralContainer', 'right')">➡️</button>
+            </div>
+        </section>
+    </main>
 
-    buyButtons.forEach(function(button) {
-        button.addEventListener('click', function(event) {
-            event.preventDefault();
-            document.getElementById('modalWhatsapp').style.display = 'flex';
-        });
-    });
+    <!-- Tela de Carregamento -->
+    <div class="loading-screen" id="loadingScreen">
+        ⏳ Carregando...
+    </div>
 
-    // Fechar modal ao clicar no botão de fechar ("x")
-    function closeModal() {
-        document.getElementById('modalWhatsapp').style.display = 'none';
-    }
+    <!-- Modal de WhatsApp -->
+    <div class="modal" id="modalWhatsapp">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <h3>Entre em contato pelo WhatsApp para finalizar a compra:</h3>
+            <p>Envie uma mensagem para o número (49) 989018917 informando o nome do produto que deseja comprar.</p>
+            <a href="https://wa.me/5549989018917?text=Olá!%20Gostaria%20de%20comprar%20o%20produto:%20" class="whatsapp-link" target="_blank">Enviar WhatsApp</a>
+        </div>
+    </div>
 
-    function searchProducts() {
-        var input = document.getElementById('searchInput');
-        var filter = input.value.toLowerCase();
-        var productContainers = document.getElementsByClassName('product-item');
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2024 Loja Apollo. Todos os direitos reservados.</p>
+    </footer>
 
-        for (var i = 0; i < productContainers.length; i++) {
-            var product = productContainers[i];
-            var productName = product.getElementsByTagName('p')[0].innerText.toLowerCase();
+    <script>
+        function scrollProducts(containerId, direction) {
+            var container = document.getElementById(containerId);
+            var scrollAmount = direction === 'left' ? -250 : 250;
+            container.scrollLeft += scrollAmount;
+        }
 
-            if (productName.includes(filter)) {
-                product.style.display = '';
-            } else {
-                product.style.display = 'none';
+        function searchProducts() {
+            var input = document.getElementById('searchInput');
+            var filter = input.value.toLowerCase();
+            var productContainers = document.getElementsByClassName('product');
+
+            for (var i = 0; i < productContainers.length; i++) {
+                var product = productContainers[i];
+                var productName = product.getElementsByTagName('p')[0].innerText.toLowerCase();
+
+                if (productName.includes(filter)) {
+                    product.style.display = '';
+                } else {
+                    product.style.display = 'none';
+                }
             }
         }
-    }
-</script>
 
+        // Modal de WhatsApp ao clicar em "Comprar"
+        var buyButtons = document.querySelectorAll('.buy-btn');
+
+        buyButtons.forEach(function(button) {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                document.getElementById('modalWhatsapp').style.display = 'flex';
+            });
+        });
+
+        // Fechar modal ao clicar no botão de fechar ("x")
+        function closeModal() {
+            document.getElementById('modalWhatsapp').style.display = 'none';
+        }
+
+        // Fechar caixa de mensagem
+        function closeMessage() {
+            document.querySelector('.overlay').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
