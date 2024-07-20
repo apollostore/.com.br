@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, max-scale=1.0">
     <meta name="description" content="Loja Apollo - Moda">
     <meta name="author" content="Loja Apollo">
     <title>Loja Apollo - Moda</title>
@@ -295,138 +295,127 @@
     <!-- Barra de Pesquisa -->
     <div class="search-bar">
         <input type="text" id="searchInput" placeholder="Buscar produtos..." onkeyup="searchProducts()">
-        <button onclick="searchProducts()">Buscar</button>
+        <button type="button" onclick="searchProducts()">Pesquisar</button>
     </div>
 
     <!-- Conteúdo Principal -->
     <main>
+        <!-- Seção de Camisas -->
         <section id="camisas">
             <h2 class="section-title">Camisas</h2>
-            <div class="product-container" id="camisasContainer">
+            <div class="product-container">
                 <div class="product">
-                    <img src="camisa1.png" alt="Camisa GearHead Japonesa">
-                    <p>Camisa GearHead Japonesa</p>
-                    <p class="price">R$ 45,00</p>
-                    <a href="#" class="btn buy-btn">Comprar</a>
+                    <img src="camisa1.png" alt="Camisa 1">
+                    <p>Camisa Apollo 1</p>
+                    <p class="price">R$49,99</p>
+                    <button class="btn">Comprar</button>
                 </div>
                 <div class="product">
-                    <img src="camisa2.png" alt="Camisa Anti Social .S Club">
-                    <p>Camisa Anti Social .S Club</p>
-                    <p class="price">R$ 45,00</p>
-                    <a href="#" class="btn buy-btn">Comprar</a>
+                    <img src="camisa2.png" alt="Camisa 2">
+                    <p>Camisa Apollo 2</p>
+                    <p class="price">R$59,99</p>
+                    <button class="btn">Comprar</button>
                 </div>
                 <div class="product">
-                    <img src="camisa3.png" alt="Camisa Golias Asteca">
-                    <p>Camisa Golias Asteca</p>
-                    <p class="price">R$ 37,00</p>
-                    <a href="#" class="btn buy-btn">Comprar</a>
+                    <img src="camisa3.png" alt="Camisa 3">
+                    <p>Camisa Apollo 3</p>
+                    <p class="price">R$69,99</p>
+                    <button class="btn">Comprar</button>
                 </div>
             </div>
             <div class="button-container">
-                <button class="scroll-button" onclick="scrollProducts('camisasContainer', 'left')">⬅️</button>
-                <button class="scroll-button" onclick="scrollProducts('camisasContainer', 'right')">➡️</button>
+                <button class="scroll-button" onclick="scrollLeft('camisas')">❮</button>
+                <button class="scroll-button" onclick="scrollRight('camisas')">❯</button>
             </div>
         </section>
 
+        <!-- Seção de Shorts -->
         <section id="shorts">
             <h2 class="section-title">Shorts</h2>
-            <div class="product-container" id="shortsContainer">
+            <div class="product-container">
                 <div class="product">
-                    <img src="short1.png" alt="Kit c/3 Shorts de Banho Masculino">
-                    <p>Kit c/3 Shorts de Banho Masculino</p>
-                    <p class="price">R$ 65,00</p>
-                    <a href="#" class="btn buy-btn">Comprar</a>
+                    <img src="shorts1.png" alt="Shorts 1">
+                    <p>Shorts Apollo 1</p>
+                    <p class="price">R$39,99</p>
+                    <button class="btn">Comprar</button>
                 </div>
                 <div class="product">
-                    <img src="short2.png" alt="Short Estampado Casual">
-                    <p>Short Estampado Casual</p>
-                    <p class="price">R$ 45,00</p>
-                    <a href="#" class="btn buy-btn">Comprar</a>
+                    <img src="shorts2.png" alt="Shorts 2">
+                    <p>Shorts Apollo 2</p>
+                    <p class="price">R$49,99</p>
+                    <button class="btn">Comprar</button>
                 </div>
                 <div class="product">
-                    <img src="short3.png" alt="Short Esportivo com Bolso">
-                    <p>Short Esportivo com Bolso</p>
-                    <p class="price">R$ 50,00</p>
-                    <a href="#" class="btn buy-btn">Comprar</a>
+                    <img src="shorts3.png" alt="Shorts 3">
+                    <p>Shorts Apollo 3</p>
+                    <p class="price">R$59,99</p>
+                    <button class="btn">Comprar</button>
                 </div>
             </div>
             <div class="button-container">
-                <button class="scroll-button" onclick="scrollProducts('shortsContainer', 'left')">⬅️</button>
-                <button class="scroll-button" onclick="scrollProducts('shortsContainer', 'right')">➡️</button>
+                <button class="scroll-button" onclick="scrollLeft('shorts')">❮</button>
+                <button class="scroll-button" onclick="scrollRight('shorts')">❯</button>
             </div>
         </section>
 
+        <!-- Seção de Calças -->
         <section id="calcas">
             <h2 class="section-title">Calças</h2>
-            <div class="product-container" id="calcasContainer">
+            <div class="product-container">
                 <div class="product">
-                    <img src="calca1.png" alt="Calça Jeans Clássica">
-                    <p>Calça Jeans Clássica</p>
-                    <p class="price">R$ 129,90</p>
-                    <a href="#" class="btn buy-btn">Comprar</a>
+                    <img src="calca1.png" alt="Calça 1">
+                    <p>Calça Apollo 1</p>
+                    <p class="price">R$79,99</p>
+                    <button class="btn">Comprar</button>
                 </div>
                 <div class="product">
-                    <img src="calca2.png" alt="Calça Esportiva">
-                    <p>Calça Esportiva</p>
-                    <p class="price">R$ 89,90</p>
-                    <a href="#" class="btn buy-btn">Comprar</a>
+                    <img src="calca2.png" alt="Calça 2">
+                    <p>Calça Apollo 2</p>
+                    <p class="price">R$89,99</p>
+                    <button class="btn">Comprar</button>
                 </div>
                 <div class="product">
-                    <img src="calca3.png" alt="Calça Social Elegante">
-                    <p>Calça Social Elegante</p>
-                    <p class="price">R$ 149,90</p>
-                    <a href="#" class="btn buy-btn">Comprar</a>
+                    <img src="calca3.png" alt="Calça 3">
+                    <p>Calça Apollo 3</p>
+                    <p class="price">R$99,99</p>
+                    <button class="btn">Comprar</button>
                 </div>
             </div>
             <div class="button-container">
-                <button class="scroll-button" onclick="scrollProducts('calcasContainer', 'left')">⬅️</button>
-                <button class="scroll-button" onclick="scrollProducts('calcasContainer', 'right')">➡️</button>
+                <button class="scroll-button" onclick="scrollLeft('calcas')">❮</button>
+                <button class="scroll-button" onclick="scrollRight('calcas')">❯</button>
             </div>
         </section>
 
+        <!-- Seção Geral -->
         <section id="geral">
-            <h2 class="section-title">Geral</h2>
-            <div class="product-container" id="geralContainer">
+            <h2 class="section-title">Produtos Gerais</h2>
+            <div class="product-container">
                 <div class="product">
-                    <img src="produto1.png" alt="Produto Geral 1">
-                    <p>Produto Geral 1</p>
-                    <p class="price">R$ 55,00</p>
-                    <a href="#" class="btn buy-btn">Comprar</a>
+                    <img src="produto1.png" alt="Produto 1">
+                    <p>Produto Apollo 1</p>
+                    <p class="price">R$29,99</p>
+                    <button class="btn">Comprar</button>
                 </div>
                 <div class="product">
-                    <img src="produto2.png" alt="Produto Geral 2">
-                    <p>Produto Geral 2</p>
-                    <p class="price">R$ 70,00</p>
-                    <a href="#" class="btn buy-btn">Comprar</a>
+                    <img src="produto2.png" alt="Produto 2">
+                    <p>Produto Apollo 2</p>
+                    <p class="price">R$39,99</p>
+                    <button class="btn">Comprar</button>
                 </div>
                 <div class="product">
-                    <img src="produto3.png" alt="Produto Geral 3">
-                    <p>Produto Geral 3</p>
-                    <p class="price">R$ 85,00</p>
-                    <a href="#" class="btn buy-btn">Comprar</a>
+                    <img src="produto3.png" alt="Produto 3">
+                    <p>Produto Apollo 3</p>
+                    <p class="price">R$49,99</p>
+                    <button class="btn">Comprar</button>
                 </div>
             </div>
             <div class="button-container">
-                <button class="scroll-button" onclick="scrollProducts('geralContainer', 'left')">⬅️</button>
-                <button class="scroll-button" onclick="scrollProducts('geralContainer', 'right')">➡️</button>
+                <button class="scroll-button" onclick="scrollLeft('geral')">❮</button>
+                <button class="scroll-button" onclick="scrollRight('geral')">❯</button>
             </div>
         </section>
     </main>
-
-    <!-- Tela de Carregamento -->
-    <div class="loading-screen" id="loadingScreen">
-        ⏳ Carregando...
-    </div>
-
-    <!-- Modal de WhatsApp -->
-    <div class="modal" id="modalWhatsapp">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeModal()">&times;</span>
-            <h3>Entre em contato pelo WhatsApp para finalizar a compra:</h3>
-            <p>Envie uma mensagem para o número (49) 989018917 informando o nome do produto que deseja comprar.</p>
-            <a href="https://wa.me/5549989018917?text=Olá!%20Gostaria%20de%20comprar%20o%20produto:%20" class="whatsapp-link" target="_blank">Enviar WhatsApp</a>
-        </div>
-    </div>
 
     <!-- Rodapé -->
     <footer>
@@ -434,48 +423,36 @@
     </footer>
 
     <script>
-        function scrollProducts(containerId, direction) {
-            var container = document.getElementById(containerId);
-            var scrollAmount = direction === 'left' ? -250 : 250;
-            container.scrollLeft += scrollAmount;
+        function closeMessage() {
+            document.querySelector('.overlay').style.display = 'none';
+        }
+
+        function scrollLeft(section) {
+            document.querySelector(`#${section} .product-container`).scrollBy({ left: -300, behavior: 'smooth' });
+        }
+
+        function scrollRight(section) {
+            document.querySelector(`#${section} .product-container`).scrollBy({ left: 300, behavior: 'smooth' });
         }
 
         function searchProducts() {
-            var input = document.getElementById('searchInput');
-            var filter = input.value.toLowerCase();
-            var productContainers = document.getElementsByClassName('product');
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const products = document.querySelectorAll('.product');
 
-            for (var i = 0; i < productContainers.length; i++) {
-                var product = productContainers[i];
-                var productName = product.getElementsByTagName('p')[0].innerText.toLowerCase();
-
+            products.forEach(product => {
+                const productName = product.querySelector('p').textContent.toLowerCase();
                 if (productName.includes(filter)) {
                     product.style.display = '';
                 } else {
                     product.style.display = 'none';
                 }
-            }
-        }
-
-        // Modal de WhatsApp ao clicar em "Comprar"
-        var buyButtons = document.querySelectorAll('.buy-btn');
-
-        buyButtons.forEach(function(button) {
-            button.addEventListener('click', function(event) {
-                event.preventDefault();
-                document.getElementById('modalWhatsapp').style.display = 'flex';
             });
-        });
-
-        // Fechar modal ao clicar no botão de fechar ("x")
-        function closeModal() {
-            document.getElementById('modalWhatsapp').style.display = 'none';
         }
 
-        // Fechar caixa de mensagem
-        function closeMessage() {
-            document.querySelector('.overlay').style.display = 'none';
-        }
+        window.onload = function() {
+            document.querySelector('.overlay').style.display = 'flex';
+        };
     </script>
 </body>
 </html>
